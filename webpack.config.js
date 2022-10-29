@@ -13,5 +13,27 @@ module.exports = {
   watch: true, // отслеживает изменения и автоматом изменяет
 
   devtool: "source-map", // как сохранять исходники. так как после оптимизации код не читаем
-  module: {}, // модули и их настройка
+  module: {
+    rules: [
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules |bower_components)/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: [
+              [
+                "@babel/preset-env",
+                {
+                  debug: true,
+                  corejs: 3,
+                  useBuiltIns: "usage",
+                },
+              ],
+            ],
+          },
+        },
+      },
+    ],
+  }, // модули и их настройка
 };
